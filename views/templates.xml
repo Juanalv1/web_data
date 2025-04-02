@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="user_list_template">
+        <t t-call="website.layout">
+            <t t-set="title" t-value="'Web Data'"/>
+            
+            <div class="container mt-5">
+                <h2 class="text-center mb-4">Lista de Usuarios</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="table-dark text-white">
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Fecha de Nacimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <t t-if="users">
+                            <t t-foreach="users" t-as="user">
+                                <tr>
+                                    <td><t t-esc="user['id']"/></td>
+                                    <td><t t-esc="user['name']"/></td>
+                                    <td><t t-esc="user['last_name']"/></td>
+                                    <td><t t-esc="user['birth_date'].strftime('%d/%m/%Y')"/></td>
+                                </tr>
+                            </t>
+                        </t>
+                        <t t-else="">
+                                <tr>
+                                    <td colspan="4" class="text-center">No hay usuarios registrados</td>
+                                </tr>
+                        </t>
+                        </tbody>
+                    </table>
+                    <div class="text-center mt-4">
+                        <a href="/usuarios/new" class="btn btn-success">
+                            Registrar Nuevo Usuario
+                        </a>
+                        <a href="/usuarios/delete" class="btn btn-danger">
+                            Borrar un usuario
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="create_user_form_template">
+        <t t-call="website.layout">
+            <t t-set="title" t-value="'Registrar Nuevo Usuario'"/>
+            <div class="container mt-5 mb-2">
+                <h2 class="text-center mb-4">Registrar Nuevo Usuario</h2>
+                <form action="/usuarios" method="post" class="p-4 rounded bg-light">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre:</label>
+                        <input type="text" name="name" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">Apellido:</label>
+                        <input type="text" name="last_name" class="form-control"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="birth_date" class="form-label">Fecha de Nacimiento:</label>
+                        <input type="date" name="birth_date" class="form-control"/>
+                    </div>
+                    <div class="text-center mb-2 pb-1">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                        <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="delete_user_form_template">
+        <t t-call="website.layout">
+            <t t-set="title" t-value="'Eliminar un Usuario'"/>
+            <div class="container mt-5 mb-2">
+                <h2 class="text-center mb-4">Eliminar un Usuario</h2>
+                <p>Elimina un usuario por su ID</p>
+                <form action="/usuarios" method="POST" class="p-4 rounded bg-light">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Id:</label>
+                        <input type="number" name="id" class="form-control"/>
+                    </div>
+                    <div class="text-center mb-2 pb-1">
+                        <button type="submit" class="btn btn-danger">Eliminar Usuario</button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+</odoo>
+
