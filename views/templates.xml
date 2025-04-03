@@ -80,7 +80,7 @@
             <div class="container mt-5 mb-2">
                 <h2 class="text-center mb-4">Eliminar un Usuario</h2>
                 <p>Elimina un usuario por su ID</p>
-                <form action="/usuarios" method="POST" class="p-4 rounded bg-light">
+                <form action="/usuarios/delete" method="POST" class="p-4 rounded bg-light">
                     <div class="mb-3">
                         <label for="name" class="form-label">Id:</label>
                         <input type="number" name="id" class="form-control"/>

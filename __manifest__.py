@@ -9,6 +9,7 @@
         'views/templates.xml',
         'views/view.xml',
         'views/menu.xml',
+        'data/ir_cron.xml',
     ],
     
     'installable': True,

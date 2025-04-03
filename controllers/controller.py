@@ -26,16 +26,16 @@ class FormController(http.Controller):
 
 
     # READ  || Ruta para leer lista de usuarios
-    @http.route('/usuarios', auth='public', type='http', website=True)
+    @http.route('/usuarios', auth='public', type='http', website=True, methods=['GET'])
     def display_users_list(self, **kw):
 
         # Retorna la lista de usuarios
         users = http.request.env['web.data'].search([])
         users_data = []
-    
+
         # Comprueba que haya almenos un usuario en mi recordset
-        if not users:
-            return http.request.render('modulo_web_data.user_list_template', {})
+        if len(users) == 0:
+            return http.request.render('modulo_web_data.user_list_template')
         else:
             # Itera sobre el recordset y lo agrega la lista
             for user in users:
@@ -45,8 +45,8 @@ class FormController(http.Controller):
                     'birth_date': user.birth_date,
                     'last_name' : user.last_name,
                 }
-            users_data.append(data)
-            # Retora una respuesta renderizando la template , con la data dentro del diccionario
+                users_data.append(data)
+            # Retorna una respuesta renderizando la template , con la data dentro del diccionario
             return http.request.render('modulo_web_data.user_list_template', {
             'users': users_data,
             })
@@ -55,7 +55,7 @@ class FormController(http.Controller):
 
     
     # DELETE || Ruta para eliminar usuarios por el ID
-    @http.route('/usuarios', type="http", auth='public', methods=['DELETE'], csrf=False)
+    @http.route('/usuarios/delete', type="http", auth='public', methods=['POST'], csrf=False)
     def delete_new_user(self, **post):
         # Capturar los datos enviados desde el formulario
         id = post.get('id')
@@ -66,7 +66,7 @@ class FormController(http.Controller):
         ]).unlink()
 
         # Redireccionar a la página principal después de guardar
-        return http.request.redirect('/usuarios/lista')
+        return http.request.redirect('/usuarios')
     
 
 

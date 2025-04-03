@@ -23,7 +23,13 @@
             <field name="name" string="Nombre"/>
             <field name="last_name" string="Apellido"/>
             <field name="birth_date" string="Fecha de nacimiento" />
-          </group>  
+          </group>
+          <!-- Chatter -->
+          <div class="oe_chatter">
+              <field name="message_follower_ids" groups="base.group_user"/>
+              <field name="activity_ids"/>
+              <field name="message_ids" options="{'post_refresh': 'always'}"/>
+          </div>
         </form>
       </field>
     </record>
@@ -34,5 +40,7 @@
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="web_data_view_tree"/>
     </record>
+
+    
 
 </odoo>
